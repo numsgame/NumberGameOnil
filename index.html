@@ -3,16 +3,421 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NGO - Number Game Online">
-  <meta name="keywords" content="game, number, online">
-  <title>NGO - Number Game Online</title>
+  <meta name="description" content="NGO - Free to Start, Real Cash Winnings. Play one game daily with consolation prizes. No initial investment needed. One game per day at 9 AM.">
+  <meta name="keywords" content="number game, free to start, cash winnings, card game, daily game, consolation prizes, India">
+  <meta name="author" content="NGO - Number Game Online">
+  <meta property="og:title" content="NGO - Free to Start, Real Cash Winnings">
+  <meta property="og:description" content="Play one card game daily at 9 AM. Win real cash. No initial investment. Patience pays.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://numsgame.github.io/NumberGameOnil/">
+  <title>NGO - Free to Start, Real Cash Winnings | Daily Card Game</title>
+  
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-    h1 { color: #333; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f9f9f9;
+    }
+    
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    
+    header p {
+      font-size: 1.3em;
+      font-weight: 300;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    section {
+      background: white;
+      margin: 30px 0;
+      padding: 40px 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    section h2 {
+      color: #667eea;
+      font-size: 2em;
+      margin-bottom: 25px;
+      border-bottom: 3px solid #667eea;
+      padding-bottom: 10px;
+    }
+    
+    .highlight {
+      background: #fffbf0;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .step {
+      display: flex;
+      margin: 20px 0;
+      align-items: flex-start;
+    }
+    
+    .step-number {
+      background: #667eea;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+    
+    .step-content h3 {
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .step-content p {
+      color: #666;
+      font-size: 0.95em;
+    }
+    
+    .why-different {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .why-item {
+      background: #f0f4ff;
+      padding: 20px;
+      border-radius: 6px;
+      border-left: 3px solid #667eea;
+    }
+    
+    .why-item h4 {
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    
+    .why-item p {
+      color: #666;
+      font-size: 0.9em;
+    }
+    
+    .dividend-box {
+      background: #fff8e1;
+      border: 2px solid #ffc107;
+      padding: 25px;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
+    
+    .dividend-box h3 {
+      color: #ff9800;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+    }
+    
+    .dividend-box p {
+      margin: 10px 0;
+      color: #333;
+      line-height: 1.8;
+    }
+    
+    .game-timing {
+      background: #e3f2fd;
+      border-left: 4px solid #2196F3;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .game-timing h3 {
+      color: #1976d2;
+      margin-bottom: 10px;
+    }
+    
+    .cta-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+      border-radius: 8px;
+      margin: 30px 0;
+    }
+    
+    .cta-section h2 {
+      color: white;
+      border-bottom: 3px solid rgba(255,255,255,0.3);
+      margin-bottom: 25px;
+    }
+    
+    .cta-section p {
+      font-size: 1.1em;
+      margin-bottom: 30px;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background: white;
+      color: #667eea;
+      padding: 15px 40px;
+      margin: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    
+    .counter-section {
+      background: #f5f5f5;
+      padding: 20px;
+      text-align: center;
+      border-radius: 6px;
+      margin-top: 30px;
+    }
+    
+    .counter-section p {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+    
+    .counter {
+      font-size: 2em;
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+      
+      .why-different {
+        grid-template-columns: 1fr;
+      }
+      
+      section {
+        padding: 20px 15px;
+      }
+      
+      .cta-button {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Welcome to NGO</h1>
-  <p>Fast and SEO-friendly static page</p>
+  <header>
+    <h1>🎰 NGO - Number Game Online</h1>
+    <p>Free to Start, Real Cash Winnings</p>
+  </header>
+  
+  <div class="container">
+    
+    <!-- How It Works -->
+    <section>
+      <h2>How It Works</h2>
+      
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Sign Up (2 Minutes)</h3>
+          <p>Just provide your name and phone number. That's it! No complex registration.</p>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Play Daily at 9 AM</h3>
+          <p>Pick 1 card from each of the 3 sets. Your choice is automatically recorded.</p>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Check Results at 9 AM</h3>
+          <p>Results are out at 9 AM daily. Login and check if you've won!</p>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Withdraw Your Winnings</h3>
+          <p>After your first win, withdraw real cash! Start with ₹1-₹10 and grow from there.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- About Dividends -->
+    <section>
+      <h2>💰 How to Win - Dividends Explained</h2>
+      
+      <div class="dividend-box">
+        <h3>Simple Version:</h3>
+        <p><strong>Not everyone loses.</strong> Even if you don't pick the exact winning card combination, you still win consolation prizes. Everyone has a chance to earn.</p>
+      </div>
+      
+      <div class="dividend-box">
+        <h3>Detailed Version:</h3>
+        <p><strong>Pick 1 card from 3 sets.</strong> Each card is marked 0 or 1.</p>
+        <p><strong>If you match the winning combination:</strong> You win the BIG DIVIDEND! 🎉</p>
+        <p><strong>If you partially match:</strong> You win CONSOLATION DIVIDENDS! 🎊</p>
+        <p><strong>Result:</strong> Everyone has a chance to win something every day.</p>
+      </div>
+      
+      <div class="highlight">
+        <strong>Key Point:</strong> Unlike other games where everyone losing is definite, here patience pays off. Keep playing, and your wins will grow over time!
+      </div>
+    </section>
+    
+    <!-- Why It's Different -->
+    <section>
+      <h2>Why NGO is Different</h2>
+      
+      <div class="why-different">
+        <div class="why-item">
+          <h4>✅ No Initial Investment</h4>
+          <p>Play completely free until you win and make your first withdrawal. Zero risk to start.</p>
+        </div>
+        
+        <div class="why-item">
+          <h4>✅ One Game Per Day</h4>
+          <p>Smart betting limits mean you won't lose money fast. Sustainable earnings, not rapid losses.</p>
+        </div>
+        
+        <div class="why-item">
+          <h4>✅ Patience Pays</h4>
+          <p>Everyone has a chance to win every day. It's not designed for quick money - it's designed for real earnings.</p>
+        </div>
+        
+        <div class="why-item">
+          <h4>✅ Automatic System</h4>
+          <p>Your account is automatically credited and debited. No manual processes. Everything happens at 9 AM daily.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Daily Game Timing -->
+    <section>
+      <h2>⏰ Daily Game Schedule</h2>
+      
+      <div class="game-timing">
+        <h3>Game Time: 9 AM Every Day</h3>
+        <p><strong>How to Play:</strong> Fill the form with your name and phone number before 9 AM.</p>
+        <p><strong>Results:</strong> Released at 9 AM. Login to your account and check immediately.</p>
+        <p><strong>Winnings:</strong> Automatically credited to your account.</p>
+        <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+          <em>Note: There are a fixed number of tickets per game (26 standard, 52 if needed). Join early to secure your spot!</em>
+        </p>
+      </div>
+    </section>
+    
+    <!-- Withdrawal Info -->
+    <section>
+      <h2>💵 Withdrawals & Payouts</h2>
+      
+      <div class="highlight">
+        <h3 style="color: #667eea; margin-bottom: 10px;">First Withdrawal</h3>
+        <p><strong>Amount:</strong> ₹1 to ₹10</p>
+        <p><strong>Processing Time:</strong> 1-5 days</p>
+        <p style="margin-top: 10px;"><em>After your first withdrawal, limits increase. You can invest as much as you want (₹1, ₹10, ₹20, ₹40, ₹80, and more).</em></p>
+      </div>
+      
+      <div class="highlight">
+        <h3 style="color: #667eea; margin-bottom: 10px;">Progressive Growth</h3>
+        <p>Each time you withdraw, your next withdrawal limit increases. The more you play and win, the more you can earn!</p>
+      </div>
+    </section>
+    
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <h2>Ready to Start Playing?</h2>
+      <p>Join thousands playing one game daily at 9 AM. No initial investment. Real cash winnings.</p>
+      
+      <a href="https://cryptpad.fr/doc/#/2/doc/view/6yB6KY+95Pm6xfsA6RQziO-IxXmip8t0sWpk8Do665o/" class="cta-button" target="_blank">
+        📋 Access Game Form & Results
+      </a>
+      
+      <p style="margin-top: 30px; font-size: 0.95em; opacity: 0.9;">
+        Click above to access the form and check daily results. Fill your name and phone number to start playing!
+      </p>
+    </section>
+    
+    <!-- Visitor Counter -->
+    <section>
+      <div class="counter-section">
+        <p>People interested in NGO:</p>
+        <div class="counter" id="visitor-count">1</div>
+        <p style="margin-top: 10px; font-size: 0.8em;">This counter shows how many people have visited this page.</p>
+      </div>
+    </section>
+  </div>
+  
+  <footer>
+    <p>&copy; 2024 NGO - Number Game Online. Available in India.</p>
+    <p style="font-size: 0.9em; margin-top: 10px;">One game. 9 AM daily. Real cash winnings. Play with patience.</p>
+  </footer>
+  
+  <!-- Visitor Counter Script -->
+  <script>
+    // Simple visitor counter using localStorage
+    function updateVisitorCount() {
+      let count = localStorage.getItem('ngo-visitor-count');
+      count = count ? parseInt(count) + 1 : 1;
+      localStorage.setItem('ngo-visitor-count', count);
+      document.getElementById('visitor-count').textContent = count;
+    }
+    
+    // Update count when page loads
+    updateVisitorCount();
+  </script>
 </body>
 </html>
