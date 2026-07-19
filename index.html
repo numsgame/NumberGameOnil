@@ -249,6 +249,32 @@
         margin: 10px 0;
       }
     }
+    .floating-cryptpad {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 14px;
+  border-radius: 999px;
+
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 600;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.floating-cryptpad:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+}
   </style>
 </head>
 <body>
@@ -519,5 +545,15 @@
     // Update count when page loads
     updateVisitorCount();
   </script>
+  <a
+  class="floating-cryptpad"
+  href="https://cryptpad.fr/doc/#/2/doc/view/6yB6KY+95Pm6xfsA6RQziO-IxXmip8t0sWpk8Do665o/"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Open CryptPad"
+  title="Open CryptPad"
+>
+  Open CryptPad
+</a>
 </body>
 </html>
