@@ -1,0 +1,11 @@
+{
+  "name": "handsontable-demo",
+  "version": "1.0.0",
+  "description": "Handsontable demo project",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "author": "",
+  "license": "MIT"
+}
