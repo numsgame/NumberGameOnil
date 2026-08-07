@@ -76,7 +76,6 @@
         }
         
         parseAndRender(text);
-        document.getElementById('status').innerText = '✅ Data loaded successfully. Drag to select cells and press Ctrl+C to copy.';
       })
       .catch(err => {
         const statusEl = document.getElementById('status');
@@ -87,41 +86,36 @@
       });
 
     function parseAndRender(text) {
+      let lines = text.split(/\r?\n/).filter(line => line.trim() !== '');
+      if (lines.length === 0) return;
+
       let rows = [];
 
-      // Handle Pipe Delimited Format (|)
-      if (text.includes('|') && !text.includes('\t')) {
-        let tokens = text.split('|')
-          .map(t => t.trim())
-          .filter(t => t !== '' && !t.startsWith('---'));
-
-        if (tokens.length >= 8) {
-          rows.push(["User ID", "Party Type", "Day1", "Day2", "28/06/2026", "29/06/2026", "30/06/2026", "01/07/2026"]);
-          let dataTokens = tokens.slice(8);
-          for (let i = 0; i < dataTokens.length; i += 7) {
-            let chunk = dataTokens.slice(i, i + 7);
-            if (chunk.length < 7) continue;
-            let firstParts = chunk[0].split(/\s+/);
-            let userId = firstParts[0] || '';
-            let partyType = firstParts.slice(1).join(' ') || '';
-            rows.push([userId, partyType, ...chunk.slice(1)]);
-          }
+      lines.forEach(line => {
+        let cells = [];
+        
+        // Handle Tab-separated data (Excel/Sheets paste)
+        if (line.includes('\t')) {
+          cells = line.split('\t').map(c => c.trim());
+        } 
+        // Handle Pipe-separated data (|)
+        else if (line.includes('|')) {
+          cells = line.split('|').map(c => c.trim()).filter(c => c !== '' && !c.startsWith('---'));
+        } 
+        // Handle Comma CSV
+        else {
+          cells = line.split(',').map(c => c.trim());
         }
-      } else {
-        // Handle Tab-Separated (Format 2/3 Excel paste) or CSV
-        let lines = text.split(/\r?\n/);
-        lines.forEach(line => {
-          if (!line.trim()) return;
-          
-          let delimiter = line.includes('\t') ? '\t' : ',';
-          let cells = line.split(delimiter).map(c => c.trim());
-          
-          if (cells.length > 0 && cells[0] === '') {
-            cells.shift();
-          }
+
+        // Standardize Header row if Party|Dt is merged
+        if (cells.length > 0 && cells[0].includes('Party|Dt')) {
+          cells = ["Party", "User ID", ...cells.slice(1)];
+        }
+
+        if (cells.length > 0) {
           rows.push(cells);
-        });
-      }
+        }
+      });
 
       renderTable(rows);
     }
@@ -129,6 +123,11 @@
     function renderTable(rows) {
       const table = document.getElementById('excel-table');
       table.innerHTML = '';
+
+      if (rows.length === 0) {
+        document.getElementById('status').innerText = '❌ No valid data rows found to display.';
+        return;
+      }
 
       rows.forEach((row, rowIndex) => {
         const tr = document.createElement('tr');
@@ -140,6 +139,8 @@
         });
         table.appendChild(tr);
       });
+
+      document.getElementById('status').innerText = '✅ Data loaded successfully (' + (rows.length - 1) + ' rows). Select cells and press Ctrl+C to copy.';
     }
   </script>
 
