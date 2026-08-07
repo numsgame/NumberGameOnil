@@ -13,8 +13,12 @@
     }
     .status-bar {
       font-size: 13px;
-      color: #666;
-      margin-bottom: 8px;
+      color: #055160;
+      background-color: #cff4fc;
+      border: 1px solid #b6effb;
+      padding: 8px 12px;
+      border-radius: 4px;
+      margin-bottom: 10px;
     }
     .table-container {
       max-height: 80vh;
@@ -48,15 +52,12 @@
     tr:hover {
       background-color: #eaf3ff;
     }
-    ::selection {
-      background-color: #b3d7ff;
-      color: #000;
-    }
   </style>
 </head>
 <body>
 
-  <div id="status" class="status-bar">Loading data...</div>
+  <div id="status" class="status-bar">Status: Fetching 'data' file...</div>
+  
   <div class="table-container">
     <table id="excel-table"></table>
   </div>
@@ -64,47 +65,61 @@
   <script>
     fetch('data?t=' + Date.now())
       .then(response => {
-        if (!response.ok) throw new Error('Could not find or load the "data" file.');
+        if (!response.ok) {
+          throw new Error('HTTP Error ' + response.status + ': Unable to open "data" file.');
+        }
         return response.text();
       })
-      .then(rawText => {
-        parseAndRender(rawText);
-        document.getElementById('status').innerText = 'Data loaded successfully. Drag to select cells and press Ctrl+C to copy.';
+      .then(text => {
+        if (!text || text.trim() === '') {
+          throw new Error('The "data" file was found, but it is completely empty.');
+        }
+        
+        parseAndRender(text);
+        document.getElementById('status').innerText = '✅ Data loaded successfully. Drag to select cells and press Ctrl+C to copy.';
       })
       .catch(err => {
-        document.getElementById('status').innerText = 'Error: ' + err.message;
+        const statusEl = document.getElementById('status');
+        statusEl.style.backgroundColor = '#f8d7da';
+        statusEl.style.color = '#842029';
+        statusEl.style.borderColor = '#f5c2c7';
+        statusEl.innerText = '❌ ' + err.message;
       });
 
     function parseAndRender(text) {
       let rows = [];
 
-      // If text contains pipe '|', parse by pipe tokens
-      if (text.includes('|')) {
+      // Handle Pipe Delimited Format (|)
+      if (text.includes('|') && !text.includes('\t')) {
         let tokens = text.split('|')
           .map(t => t.trim())
           .filter(t => t !== '' && !t.startsWith('---'));
 
         if (tokens.length >= 8) {
-          // Define clean header
           rows.push(["User ID", "Party Type", "Day1", "Day2", "28/06/2026", "29/06/2026", "30/06/2026", "01/07/2026"]);
-          
           let dataTokens = tokens.slice(8);
           for (let i = 0; i < dataTokens.length; i += 7) {
             let chunk = dataTokens.slice(i, i + 7);
             if (chunk.length < 7) continue;
-
             let firstParts = chunk[0].split(/\s+/);
             let userId = firstParts[0] || '';
             let partyType = firstParts.slice(1).join(' ') || '';
-
             rows.push([userId, partyType, ...chunk.slice(1)]);
           }
         }
       } else {
-        // Fallback for standard line-by-line CSV parsing
+        // Handle Tab-Separated (Format 2/3 Excel paste) or CSV
         let lines = text.split(/\r?\n/);
         lines.forEach(line => {
-          if (line.trim()) rows.push(line.split(',').map(c => c.trim()));
+          if (!line.trim()) return;
+          
+          let delimiter = line.includes('\t') ? '\t' : ',';
+          let cells = line.split(delimiter).map(c => c.trim());
+          
+          if (cells.length > 0 && cells[0] === '') {
+            cells.shift();
+          }
+          rows.push(cells);
         });
       }
 
