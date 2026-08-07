@@ -65,7 +65,7 @@
 
   <script>
     // Fetch the raw CSV data file directly from the repo
-    fetch('data')
+    fetch('data?t=' + Date.now())
       .then(response => {
         if (!response.ok) {
           throw new Error('Could not find or load the "data" file.');
