@@ -17,6 +17,23 @@
   </style>
 </head>
 <body>
+// add this after you load Handsontable
+const searchBox = document.getElementById('searchBox');
+searchBox.addEventListener('input', () => {
+  const term = searchBox.value.toLowerCase();
+
+  // example: hide/show multiple tables
+  document.querySelectorAll('.handsontable').forEach(tbl => {
+    const match = tbl.textContent.toLowerCase().includes(term);
+    tbl.style.display = match ? '' : 'none';
+  });
+});
+  <!-- add this inside <body> -->
+<input type="text" id="searchBox" placeholder="Search tables…">
+
+<div id="tableContainer">
+  <!-- your Handsontable will appear here -->
+</div>
   <div id="hot-container"></div>
 
   <script>
