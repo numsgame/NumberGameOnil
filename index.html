@@ -19,6 +19,127 @@
   th{background:#f0f0f0}
 </style>
 
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Sheet Viewer</title>
+    <!-- SheetJS library for parsing -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+        }
+        #excel-table th, #excel-table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        #excel-table th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        #excel-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        #excel-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .error-message {
+            color: red;
+            padding: 20px;
+            background: #ffeeee;
+            border: 1px solid #ffcccc;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Party Data Excel Sheet</h1>
+        <div id="loading" class="loading">Loading data...</div>
+        <div id="error-message" class="error-message" style="display: none;"></div>
+        <div id="table-container"></div>
+    </div>
+
+    <script>
+        // Path to your CSV file in the same GitHub repository
+        const csvFilePath = 'data.csv';  // Change this if your file has a different name
+
+        async function loadAndDisplayCSV() {
+            try {
+                // Fetch the CSV file
+                const response = await fetch(csvFilePath);
+                if (!response.ok) {
+                    throw new Error(`Failed to load file: ${response.status} ${response.statusText}`);
+                }
+                const csvText = await response.text();
+                
+                // Parse CSV using SheetJS
+                const workbook = XLSX.read(csvText, { type: 'string' });
+                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                
+                // Convert to HTML table
+                const htmlTable = XLSX.utils.sheet_to_html(sheet, {
+                    header: "",  // No extra header
+                    footer: ""   // No extra footer
+                });
+                
+                // Create a styled table
+                const tableContainer = document.getElementById('table-container');
+                const wrapper = document.createElement('div');
+                wrapper.style.overflowX = 'auto';
+                wrapper.innerHTML = htmlTable;
+                
+                // Add classes to the generated table
+                const table = wrapper.querySelector('table');
+                table.id = 'excel-table';
+                table.style.width = '100%';
+                
+                // Add zebra striping and hover effects via CSS
+                tableContainer.appendChild(wrapper);
+                
+                // Hide loading, show table
+                document.getElementById('loading').style.display = 'none';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loading').style.display = 'none';
+                const errorDiv = document.getElementById('error-message');
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = `Error loading data: ${error.message}`;
+            }
+      
   <!-- 2) Put this textarea + button anywhere in <body> -->
 <textarea id="csv" rows="20" style="width:100%" placeholder="Paste CSV here"></textarea>
 <button onclick="makeTable()">Show Table</button>
