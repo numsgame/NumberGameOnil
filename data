@@ -1,7 +1,11 @@
-Latest news will appear here. paste text here,Party Type,Day1,Day2,28/06/2026,29/06/2026,30/06/2026,01/07/2026
+User ID,Party Type,Day1,Day2,28/06/2026,29/06/2026,30/06/2026,01/07/2026
 aa001,Investment,1,1,10,20,40,80
 aa001,Dividend,0,0,0,2,6,18
 aa001,Balance,-1,-2,-12,-30,-64,-126
+aa001,TodaysWinBits,011,111,011,000,001,001
+aa001,Investment,1,1,10,20,40,80
+aa001,Dividend,0,0,0,0,0,0
+aa001,Balance,-1,-2,-12,-32,-72,-152
 aa001,TodaysWinBits,011,111,011,000,001,001
 aa0299,Investment,1,1,10,20,40,80
 aa0299,Dividend,0,0,0,2,0,0
