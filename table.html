@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Table</title>
-  <!-- PapaParse CDN for parsing CSV content -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <style>
     body {
@@ -28,7 +27,7 @@
       border-collapse: collapse;
       width: 100%;
       font-size: 13px;
-      user-select: text; /* Allows click-and-drag cell selection */
+      user-select: text;
     }
     th, td {
       border: 1px solid #d0d7de;
@@ -37,12 +36,12 @@
       white-space: nowrap;
     }
     th {
-      background-color: #f2f4f7;
+      background-color: #34495e;
+      color: #ffffff;
       position: sticky;
       top: 0;
       z-index: 2;
       font-weight: 600;
-      color: #1f2328;
     }
     tr:nth-child(even) {
       background-color: #f8f9fa;
@@ -64,20 +63,19 @@
   </div>
 
   <script>
-    // Fetch the raw CSV data file directly from the repo
+    // Fetch data with a timestamp parameter to force fresh daily loads
     fetch('data?t=' + Date.now())
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Could not find or load the "data" file.');
-        }
+        if (!response.ok) throw new Error('Could not find or load the "data" file.');
         return response.text();
       })
       .then(csvText => {
         Papa.parse(csvText, {
           skipEmptyLines: true,
+          delimitersToGuess: [',', '|', '\t', ';'],
           complete: function(results) {
             renderTable(results.data);
-            document.getElementById('status').innerText = 'Data loaded successfully. Drag to select cells and press Ctrl+C to copy.';
+            document.getElementById('status').innerText = 'Data loaded successfully. Select cells and press Ctrl+C to copy.';
           }
         });
       })
@@ -90,9 +88,26 @@
       table.innerHTML = '';
 
       data.forEach((row, rowIndex) => {
+        let cleanRow = row.map(cell => cell.trim()).filter(cell => cell !== '');
+
+        // Ignore leftover markdown divider lines like |---|---|
+        if (cleanRow.length === 0 || cleanRow[0].startsWith('---') || cleanRow[0].includes('-----')) {
+          return;
+        }
+
+        // Auto-split combined ID + Type entries if unformatted raw data is pasted
+        if (rowIndex > 0 && cleanRow.length > 0) {
+          const parts = cleanRow[0].split(/\s+/);
+          if (parts.length >= 2) {
+            const id = parts[0];
+            const type = parts.slice(1).join(' ');
+            cleanRow = [id, type, ...cleanRow.slice(1)];
+          }
+        }
+
         const tr = document.createElement('tr');
-        row.forEach(cell => {
-          const tag = rowIndex === 0 ? 'th' : 'td';
+        cleanRow.forEach(cell => {
+          const tag = (rowIndex === 0) ? 'th' : 'td';
           const el = document.createElement(tag);
           el.textContent = cell;
           tr.appendChild(el);
