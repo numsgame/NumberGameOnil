@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Table</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -63,50 +62,62 @@
   </div>
 
   <script>
-    // Fetch data with a timestamp parameter to force fresh daily loads
     fetch('data?t=' + Date.now())
       .then(response => {
         if (!response.ok) throw new Error('Could not find or load the "data" file.');
         return response.text();
       })
-      .then(csvText => {
-        Papa.parse(csvText, {
-          skipEmptyLines: true,
-          delimitersToGuess: [',', '|', '\t', ';'],
-          complete: function(results) {
-            renderTable(results.data);
-            document.getElementById('status').innerText = 'Data loaded successfully. Select cells and press Ctrl+C to copy.';
-          }
-        });
+      .then(rawText => {
+        parseAndRender(rawText);
+        document.getElementById('status').innerText = 'Data loaded successfully. Drag to select cells and press Ctrl+C to copy.';
       })
       .catch(err => {
         document.getElementById('status').innerText = 'Error: ' + err.message;
       });
 
-    function renderTable(data) {
+    function parseAndRender(text) {
+      let rows = [];
+
+      // If text contains pipe '|', parse by pipe tokens
+      if (text.includes('|')) {
+        let tokens = text.split('|')
+          .map(t => t.trim())
+          .filter(t => t !== '' && !t.startsWith('---'));
+
+        if (tokens.length >= 8) {
+          // Define clean header
+          rows.push(["User ID", "Party Type", "Day1", "Day2", "28/06/2026", "29/06/2026", "30/06/2026", "01/07/2026"]);
+          
+          let dataTokens = tokens.slice(8);
+          for (let i = 0; i < dataTokens.length; i += 7) {
+            let chunk = dataTokens.slice(i, i + 7);
+            if (chunk.length < 7) continue;
+
+            let firstParts = chunk[0].split(/\s+/);
+            let userId = firstParts[0] || '';
+            let partyType = firstParts.slice(1).join(' ') || '';
+
+            rows.push([userId, partyType, ...chunk.slice(1)]);
+          }
+        }
+      } else {
+        // Fallback for standard line-by-line CSV parsing
+        let lines = text.split(/\r?\n/);
+        lines.forEach(line => {
+          if (line.trim()) rows.push(line.split(',').map(c => c.trim()));
+        });
+      }
+
+      renderTable(rows);
+    }
+
+    function renderTable(rows) {
       const table = document.getElementById('excel-table');
       table.innerHTML = '';
 
-      data.forEach((row, rowIndex) => {
-        let cleanRow = row.map(cell => cell.trim()).filter(cell => cell !== '');
-
-        // Ignore leftover markdown divider lines like |---|---|
-        if (cleanRow.length === 0 || cleanRow[0].startsWith('---') || cleanRow[0].includes('-----')) {
-          return;
-        }
-
-        // Auto-split combined ID + Type entries if unformatted raw data is pasted
-        if (rowIndex > 0 && cleanRow.length > 0) {
-          const parts = cleanRow[0].split(/\s+/);
-          if (parts.length >= 2) {
-            const id = parts[0];
-            const type = parts.slice(1).join(' ');
-            cleanRow = [id, type, ...cleanRow.slice(1)];
-          }
-        }
-
+      rows.forEach((row, rowIndex) => {
         const tr = document.createElement('tr');
-        cleanRow.forEach(cell => {
+        row.forEach(cell => {
           const tag = (rowIndex === 0) ? 'th' : 'td';
           const el = document.createElement(tag);
           el.textContent = cell;
