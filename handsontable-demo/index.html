@@ -1,41 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Handsontable Demo</title>
-  <link href="https://cdn.jsdelivr.net/npm/handsontable@12/dist/handsontable.full.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/handsontable@12/dist/handsontable.full.min.js"></script>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    #sheet { height: 400px; width: 100%; margin-top: 20px; }
-  </style>
-</head>
-<body>
+<script>
+  const container = document.getElementById('sheet');
 
-  <h2>Daily Anonymous Data</h2>
-  <div id="sheet"></div>
+  // Load data from localStorage or start fresh
+  const savedData = localStorage.getItem('handsontableData');
+  const initialData = savedData
+    ? JSON.parse(savedData)
+    : [
+        ['Date', 'Task', 'Status', 'Notes'],
+        ['2025-04-09', 'Update site', 'In Progress', 'Need VPN test'],
+        ['2025-04-08', 'Fix login bug', 'Done', ''],
+        ['2025-04-07', 'Design mockup', 'Pending', 'Waiting for feedback']
+      ];
 
-  <script>
-    const container = document.getElementById('sheet');
+  const hot = new Handsontable(container, {
+    data: initialData,
+    colHeaders: true,
+    rowHeaders: true,
+    contextMenu: true,
+    manualColumnResize: true,
+    manualRowResize: true,
+    stretchH: 'all',
+    licenseKey: 'non-commercial-and-evaluation'
+  });
 
-    const data = [
-      ['Date', 'Task', 'Status', 'Notes'],
-      ['2025-04-09', 'Update site', 'In Progress', 'Need VPN test'],
-      ['2025-04-08', 'Fix login bug', 'Done', ''],
-      ['2025-04-07', 'Design mockup', 'Pending', 'Waiting for feedback']
-    ];
+  // Save button
+  const saveBtn = document.createElement('button');
+  saveBtn.textContent = '💾 Save Data';
+  saveBtn.style.marginTop = '10px';
+  saveBtn.onclick = () => {
+    const currentData = hot.getData();
+    localStorage.setItem('handsontableData', JSON.stringify(currentData));
+    alert('✅ Data saved!');
+  };
 
-    new Handsontable(container, {
-      data: data,
-      colHeaders: true,
-      rowHeaders: true,
-      contextMenu: true,
-      manualColumnResize: true,
-      manualRowResize: true,
-      stretchH: 'all',
-      licenseKey: 'non-commercial-and-evaluation'
-    });
-  </script>
-
-</body>
-</html>
+  container.parentNode.appendChild(saveBtn);
+</script>
