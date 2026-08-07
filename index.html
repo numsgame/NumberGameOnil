@@ -11,7 +11,66 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://numsgame.github.io/NumberGameOnil/">
   <title>Daily Number Game Online | Play at 9 AM & Withdraw Winnings</title>
-  
+
+  <!-- 1) Put this style block in <head> (or merge with your existing <style>) -->
+<style>
+  table{border-collapse:collapse;width:100%}
+  th,td{border:1px solid #ccc;padding:4px 8px;text-align:left}
+  th{background:#f0f0f0}
+</style>
+
+  <!-- 2) Put this textarea + button anywhere in <body> -->
+<textarea id="csv" rows="20" style="width:100%" placeholder="Paste CSV here"></textarea>
+<button onclick="makeTable()">Show Table</button>
+<table id="tbl"></table>
+
+  <!-- 3) Put this script just before the closing </body> tag -->
+<script>
+function makeTable(){
+  const rows=document.getElementById('csv').value.trim().split('\n').map(r=>r.split(','));
+  const tbl=document.getElementById('tbl');
+  tbl.innerHTML='';
+  rows.forEach((row,i)=>{
+    const tr=tbl.insertRow();
+    row.forEach(cell=>{
+      const el=i===0?'th':'td';
+      tr.insertCell().outerHTML=`<${el}>${cell}</${el}>`;
+    });
+  });
+}
+</script>
+  <!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Daily Table</title>
+<style>
+  table{border-collapse:collapse;width:100%}
+  th,td{border:1px solid #ccc;padding:4px 8px;text-align:left}
+  th{background:#f0f0f0}
+</style>
+</head>
+<body>
+<table id="tbl"></table>
+
+<script>
+fetch('data.csv')
+  .then(r => r.text())
+  .then(csv => {
+    const rows = csv.trim().split('\n').map(r => r.split(','));
+    const tbl  = document.getElementById('tbl');
+    tbl.innerHTML = '';
+    rows.forEach((row, i) => {
+      const tr = tbl.insertRow();
+      row.forEach(cell => {
+        const el = i === 0 ? 'th' : 'td';
+        tr.insertCell().outerHTML = `<${el}>${cell}</${el}>`;
+      });
+    });
+  });
+</script>
+</body>
+</html>
   <style>
     * {
       margin: 0;
