@@ -639,16 +639,26 @@
     // Update count when page loads
     updateVisitorCount();
   </script>
-  <a
-  class="floating-cryptpad"
-  href="https://cryptpad.fr/doc/#/2/doc/view/6yB6KY+95Pm6xfsA6RQziO-IxXmip8t0sWpk8Do665o/"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="play NOW"
-  title="play NOW"
->
-  play NOW
-</a>
+<!-- Replace this line:
+<a class="floating-cryptpad" href="https://cryptpad.fr/doc/#/2/doc/view/6yB6KY+95Pm6xfsA6RQziO-IxXmip8t0sWpk8Do665o/" target="_blank" rel="noopener noreferrer" aria-label="play NOW" title="play NOW" > play NOW </a>
+-->
+
+<button id="playBtn" class="floating-cryptpad" onclick="showMessage()">play NOW</button>
+
+<script>
+function showMessage() {
+  const instruction = "Please click on the 'Chat on WhatsApp' green button. Then, send a message including your name, phone number, and choose a number from this set: 000 001 011 111 110 100 010 101. For example:\\n\\nName: Sham Kumar Banerjee\\nPhone: 9988598599\\nNumber: 111";
+
+  // Simple alert with the guidance
+  alert(instruction);
+
+  // Optional: automatically open WhatsApp with a prefilled message
+  // Uncomment and customize if you want this behavior
+  // const text = "Hello, my name is Sham Kumar Banerjee. My phone is 9988598599. My chosen number is 111.";
+  // const waUrl = "https://wa.me/918762529151?text=" + encodeURIComponent(text);
+  // window.open(waUrl, "_blank");
+}
+</script>
   <!-- Floating WhatsApp button -->
 <a class="wa-float" href="https://wa.me/918762529151" target="_blank" rel="noopener">
     <span class="wa-small">chat on</span><br>
