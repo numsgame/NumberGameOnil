@@ -20,3 +20,60 @@ Balance		-1	-2	-12	-32	-66	-128
 Investment	aa001	1	1	10	20	40	80
 Dividend		0	0	0	2	10	26
 Balance		-1	-2	-12	-30	-60	-114
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	2	2	6	18
+Balance		-1	-2	-10	-28	-62	-124
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	0	2	6	18
+Balance		-1	-2	-12	-30	-64	-126
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	2	2	10	26
+Balance		-1	-2	-10	-28	-58	-112
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	0	2	6	18
+Balance		-1	-2	-12	-30	-64	-126
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	0	0	0	0
+Balance		-1	-2	-12	-32	-72	-152
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	0	2	0	0
+Balance		-1	-2	-12	-30	-70	-150
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	0	0	6	18
+Balance		-1	-2	-12	-32	-66	-128
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	0	2	6	18
+Balance		-1	-2	-12	-30	-64	-126
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	0	2	10	26
+Balance		-1	-2	-12	-30	-60	-114
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	0	2	0	0
+Balance		-1	-2	-12	-30	-70	-150
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	2	0	6	18
+Balance		-1	-2	-10	-30	-64	-126
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	0	2	6	18
+Balance		-1	-2	-12	-30	-64	-126
+Investment	aa001	1	1	10	20	40	80
+Dividend		0	0	0	2	10	26
+Balance		-1	-2	-12	-30	-60	-114
+Investment	aa0299	1	1	10	20	40	80
+Dividend		0	0	0	2	0	0
+Balance		-1	-2	-12	-30	-70	-150
+Investment	az0929	1	1	10	20	40	80
+Dividend		0	0	2	0	6	18
+Balance		-1	-2	-10	-30	-64	-126
+Investment	aa4758	1	1	10	20	10	10
+Dividend		0	0	0	46	10	26
+Balance		-1	-2	-12	14	14	30
+Investment	mo7068	1	1	10	20	40	20
+Dividend		0	0	2	2	174	504
+Balance		-1	-2	-10	-28	106	590
+Investment	aa7620	1	1	10	20	40	80
+Dividend		0	0	2	2	6	18
+Balance		-1	-2	-10	-28	-62	-124
+Investment	hu2628	1	1	10	10	10	10
+Dividend		6	0	24	2	10	26
+Balance		5	4	14	6	6	22
